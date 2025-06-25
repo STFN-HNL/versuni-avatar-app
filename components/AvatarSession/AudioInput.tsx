@@ -1,22 +1,31 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { useVoiceChat } from "../logic/useVoiceChat";
 import { Button } from "../Button";
 import { LoadingIcon, MicIcon, MicOffIcon } from "../Icons";
 import { useConversationState } from "../logic/useConversationState";
+import { useStreamingAvatarContext } from "../logic/context";
 
 export const AudioInput: React.FC = () => {
-  const { muteInputAudio, unmuteInputAudio, isMuted, isVoiceChatLoading } =
-    useVoiceChat();
+  const {
+    muteInputAudio,
+    unmuteInputAudio,
+    isMuted,
+    isVoiceChatLoading,
+  } = useVoiceChat();
+  const { setIsMuted, avatarRef } = useStreamingAvatarContext();
   const { isUserTalking } = useConversationState();
 
-  const handleMuteClick = () => {
+  const handleMuteClick = useCallback(async () => {
+    if (!avatarRef.current) return;
     if (isMuted) {
-      unmuteInputAudio();
+      await avatarRef.current.unmuteInputAudio();
+      setIsMuted(false);
     } else {
-      muteInputAudio();
+      await avatarRef.current.muteInputAudio();
+      setIsMuted(true);
     }
-  };
+  }, [avatarRef, isMuted, setIsMuted]);
 
   return (
     <div>

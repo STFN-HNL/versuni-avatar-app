@@ -1,17 +1,11 @@
 import "@/styles/globals.css";
 import { Metadata } from "next";
-import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google";
+import { Maven_Pro } from "next/font/google";
 
-import NavBar from "@/components/NavBar";
-
-const fontSans = FontSans({
+const mavenPro = Maven_Pro({
   subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const fontMono = FontMono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
+  weight: ["400", "500", "700"],
+  variable: "--font-maven-pro",
 });
 
 export const metadata: Metadata = {
@@ -32,13 +26,12 @@ export default function RootLayout({
   return (
     <html
       suppressHydrationWarning
-      className={`${fontSans.variable} ${fontMono.variable} font-sans`}
+      className={`${mavenPro.variable} font-sans`}
       lang="en"
     >
       <head />
-      <body className="min-h-screen bg-black text-white">
-        <main className="relative flex flex-col gap-6 h-screen w-screen">
-          <NavBar />
+      <body className="min-h-screen bg-white text-black">
+        <main className="relative flex flex-col gap-6 min-h-screen w-screen bg-white">
           {children}
         </main>
       </body>

@@ -22,7 +22,7 @@ export const useVoiceChat = () => {
       });
       setIsVoiceChatLoading(false);
       setIsVoiceChatActive(true);
-      setIsMuted(!!isInputAudioMuted);
+      setIsMuted(false);
     },
     [avatarRef, setIsMuted, setIsVoiceChatActive, setIsVoiceChatLoading],
   );
