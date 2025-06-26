@@ -139,15 +139,15 @@ function InteractiveAvatar() {
   }, [mediaStream, stream]);
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center py-8">
-      <div className="w-full max-w-5xl mx-auto flex flex-col gap-8 items-center">
-        <img src="/versuni-logo.png" alt="Versuni Logo" className="mx-auto mb-2 max-h-20 w-auto" />
-        <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-4xl mb-2 mx-auto">
-          <h1 className="text-2xl font-bold text-blue-800 mb-2">Coaching for Growth at Versuni</h1>
-          <p className="text-base text-gray-700 mb-2 font-semibold">Welcome to your AI-powered coaching session.</p>
-          <p className="text-base text-gray-700 mb-4">In this interactive simulation, you will act as a <b>coach</b> and guide a virtual coachee through realistic conversations using proven coaching frameworks:</p>
-          <p className="text-base text-blue-700 font-semibold mb-4">GROW – <span className="font-normal">Goal, Reality, Options, Will – for structured coaching conversations</span></p>
-          <p className="text-base text-gray-700 mb-4">The coachee will respond naturally—sometimes confident, sometimes uncertain, and occasionally challenged. Your task is to stay curious, ask open questions, and support reflection, clarity, and growth.</p>
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center py-4 sm:py-8">
+      <div className="w-full max-w-full sm:max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto flex flex-col gap-6 sm:gap-8 items-center px-2 sm:px-4">
+        <img src="/versuni-logo.png" alt="Versuni Logo" className="mx-auto mb-2 max-h-16 sm:max-h-20 w-auto" />
+        <div className="bg-white rounded-xl shadow-2xl p-3 sm:p-6 w-full max-w-full sm:max-w-2xl md:max-w-4xl mb-2 mx-auto">
+          <h1 className="text-xl sm:text-2xl font-bold text-blue-800 mb-2">Coaching for Growth at Versuni</h1>
+          <p className="text-sm sm:text-base text-gray-700 mb-2 font-semibold">Welcome to your AI-powered coaching session.</p>
+          <p className="text-sm sm:text-base text-gray-700 mb-4">In this interactive simulation, you will act as a <b>coach</b> and guide a virtual coachee through realistic conversations using proven coaching frameworks:</p>
+          <p className="text-sm sm:text-base text-blue-700 font-semibold mb-4">GROW – <span className="font-normal">Goal, Reality, Options, Will – for structured coaching conversations</span></p>
+          <p className="text-sm sm:text-base text-gray-700 mb-4">The coachee will respond naturally—sometimes confident, sometimes uncertain, and occasionally challenged. Your task is to stay curious, ask open questions, and support reflection, clarity, and growth.</p>
           <div className="mb-4">
             <div className="font-semibold mb-1">✅ Before You Start</div>
             <ul className="list-disc list-inside text-gray-700 ml-2">
@@ -170,9 +170,9 @@ function InteractiveAvatar() {
             <ol className="list-decimal list-inside text-gray-700 ml-2">
               <li>Click 'Chat now' to begin</li>
               <li>Select your preferred language when the session starts</li>
-              <li>Type <b>"START Coaching"</b> to begin the session</li>
+              <li>Type <b>“START Coaching”</b> to begin the session</li>
               <li>Guide the coachee through development challenges using open, thoughtful questions</li>
-              <li>Type <b>"END Coaching"</b> when you're finished</li>
+              <li>Type <b>“END Coaching”</b> when you're finished</li>
               <li>Receive <b>personalized feedback</b> on your coaching or feedback style</li>
             </ol>
           </div>
@@ -187,7 +187,7 @@ function InteractiveAvatar() {
           </div>
         </div>
         <div className="relative w-full flex flex-col items-center">
-          <div className="w-full aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center">
+          <div className="w-full aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center max-w-full sm:max-w-2xl md:max-w-3xl">
             {sessionState !== StreamingAvatarSessionState.INACTIVE ? (
               <AvatarVideo ref={mediaStream} />
             ) : (
