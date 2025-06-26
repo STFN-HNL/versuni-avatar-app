@@ -140,17 +140,17 @@ function InteractiveAvatar() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center py-4 sm:py-8">
-      <div className="w-full max-w-full sm:max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto flex flex-col gap-6 sm:gap-8 items-center px-2 sm:px-4">
+      <div className="w-full max-w-2xl mx-auto flex flex-col gap-6 sm:gap-8 items-center px-2 sm:px-4">
         <img src="/versuni-logo.png" alt="Versuni Logo" className="mx-auto mb-2 max-h-16 sm:max-h-20 w-auto" />
-        <div className="bg-white rounded-xl shadow-2xl p-3 sm:p-6 w-full max-w-full sm:max-w-2xl md:max-w-4xl mb-2 mx-auto">
-          <h1 className="text-xl sm:text-2xl font-bold text-blue-800 mb-2">Coaching for Growth at Versuni</h1>
-          <p className="text-sm sm:text-base text-gray-700 mb-2 font-semibold">Welcome to your AI-powered coaching session.</p>
-          <p className="text-sm sm:text-base text-gray-700 mb-4">In this interactive simulation, you will act as a <b>coach</b> and guide a virtual coachee through realistic conversations using proven coaching frameworks:</p>
-          <p className="text-sm sm:text-base text-blue-700 font-semibold mb-4">GROW – <span className="font-normal">Goal, Reality, Options, Will – for structured coaching conversations</span></p>
-          <p className="text-sm sm:text-base text-gray-700 mb-4">The coachee will respond naturally—sometimes confident, sometimes uncertain, and occasionally challenged. Your task is to stay curious, ask open questions, and support reflection, clarity, and growth.</p>
+        <div className="bg-white rounded-xl shadow-2xl p-3 sm:p-6 w-full max-w-2xl mb-2 mx-auto">
+          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">Coaching for Growth at Versuni</h1>
+          <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">Welcome to your AI-powered coaching session.</p>
+          <p className="text-base sm:text-lg text-gray-700 mb-4">In this interactive simulation, you will act as a <b>coach</b> and guide a virtual coachee through realistic conversations using proven coaching frameworks:</p>
+          <p className="text-base sm:text-lg text-blue-700 font-semibold mb-4">GROW – <span className="font-normal">Goal, Reality, Options, Will – for structured coaching conversations</span></p>
+          <p className="text-base sm:text-lg text-gray-700 mb-4">The coachee will respond naturally—sometimes confident, sometimes uncertain, and occasionally challenged. Your task is to stay curious, ask open questions, and support reflection, clarity, and growth.</p>
           <div className="mb-4">
-            <div className="font-semibold mb-1">✅ Before You Start</div>
-            <ul className="list-disc list-inside text-gray-700 ml-2">
+            <div className="font-semibold mb-1 text-lg sm:text-xl">✅ Before You Start</div>
+            <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
               <li>Use <b>headphones</b> for the best experience</li>
               <li>Ensure a <b>stable internet connection</b> – the avatar requires good connectivity</li>
               <li>Be <b>patient</b> – responses can take 10–15 seconds</li>
@@ -158,27 +158,27 @@ function InteractiveAvatar() {
             </ul>
           </div>
           <div className="mb-4">
-            <div className="font-semibold mb-1">🎯 Your Role</div>
-            <ul className="list-disc list-inside text-gray-700 ml-2">
+            <div className="font-semibold mb-1 text-lg sm:text-xl">🎯 Your Role</div>
+            <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
               <li><b>You</b> are the <b>coach</b> – your job is to guide the coachee</li>
               <li>The avatar is the <b>coachee</b> – they rely on your coaching</li>
               <li>If the avatar accidentally starts coaching you back, say:<br /><span className="italic">"Stay in the role of your prompt."</span></li>
             </ul>
           </div>
           <div className="mb-4">
-            <div className="font-semibold mb-1">🛠️ How to Use</div>
-            <ol className="list-decimal list-inside text-gray-700 ml-2">
+            <div className="font-semibold mb-1 text-lg sm:text-xl">🛠️ How to Use</div>
+            <ol className="list-decimal list-inside text-base sm:text-lg text-gray-700 ml-2">
               <li>Click 'Chat now' to begin</li>
               <li>Select your preferred language when the session starts</li>
-              <li>Type <b>“START Coaching”</b> to begin the session</li>
+              <li>Type <b>"START Coaching"</b> to begin the session</li>
               <li>Guide the coachee through development challenges using open, thoughtful questions</li>
-              <li>Type <b>“END Coaching”</b> when you're finished</li>
+              <li><b>Say: End coaching and give feedback.</b></li>
               <li>Receive <b>personalized feedback</b> on your coaching or feedback style</li>
             </ol>
           </div>
           <div className="mb-2">
-            <div className="font-semibold mb-1">🔍 Want to Get Better?</div>
-            <ul className="list-disc list-inside text-gray-700 ml-2">
+            <div className="font-semibold mb-1 text-lg sm:text-xl">🔍 Want to Get Better?</div>
+            <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
               <li><span className="italic">"Can you give me more detailed feedback on [specific area]?"</span></li>
               <li><span className="italic">"What tools or techniques can help me improve my listening?"</span></li>
               <li><span className="italic">"Give me 3 deeper questions I could have asked."</span></li>
@@ -186,8 +186,8 @@ function InteractiveAvatar() {
             </ul>
           </div>
         </div>
-        <div className="relative w-full flex flex-col items-center">
-          <div className="w-full aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center max-w-full sm:max-w-2xl md:max-w-3xl">
+        <div className="relative w-full max-w-2xl mx-auto flex flex-col items-center">
+          <div className="w-full aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center max-w-2xl mx-auto">
             {sessionState !== StreamingAvatarSessionState.INACTIVE ? (
               <AvatarVideo ref={mediaStream} />
             ) : (
@@ -195,7 +195,7 @@ function InteractiveAvatar() {
             )}
             {sessionState === StreamingAvatarSessionState.INACTIVE && (
               <button
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg text-lg transition"
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg text-lg transition z-10"
                 onClick={() => startSessionV2(true)}
               >
                 Chat now
