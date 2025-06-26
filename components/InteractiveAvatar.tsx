@@ -140,9 +140,9 @@ function InteractiveAvatar() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center py-4 sm:py-8">
-      <div className="w-full max-w-2xl mx-auto flex flex-col gap-6 sm:gap-8 items-center px-2 sm:px-4">
-        <img src="/versuni-logo.png" alt="Versuni Logo" className="mx-auto mb-2 max-h-16 sm:max-h-20 w-auto" />
-        <div className="bg-white rounded-xl shadow-2xl p-3 sm:p-6 w-full max-w-2xl mb-2 mx-auto">
+      <div className="w-full max-w-5xl mx-auto flex flex-col gap-10 items-center px-1 sm:px-6">
+        <img src="/versuni-logo.png" alt="Versuni Logo" className="mx-auto mb-2 max-h-24 sm:max-h-28 w-auto" />
+        <div className="bg-white rounded-xl p-6 sm:p-10 w-full mb-2 mx-auto">
           <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">Coaching for Growth at Versuni</h1>
           <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">Welcome to your AI-powered coaching session.</p>
           <p className="text-base sm:text-lg text-gray-700 mb-4">In this interactive simulation, you will act as a <b>coach</b> and guide a virtual coachee through realistic conversations using proven coaching frameworks:</p>
@@ -186,8 +186,8 @@ function InteractiveAvatar() {
             </ul>
           </div>
         </div>
-        <div className="relative w-full max-w-2xl mx-auto flex flex-col items-center">
-          <div className="w-full aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center max-w-2xl mx-auto">
+        <div className="relative w-full max-w-5xl mx-auto flex flex-col items-center">
+          <div className="w-full max-w-5xl aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center mx-auto" style={{ minHeight: '460px' }}>
             {sessionState !== StreamingAvatarSessionState.INACTIVE ? (
               <AvatarVideo ref={mediaStream} />
             ) : (

@@ -29,7 +29,7 @@ export const AvatarControls: React.FC = () => {
           <Button
             className="rounded-lg px-6 py-2 text-sm text-center"
             onClick={() => startVoiceChat()}
-            disabled={isVoiceChatLoading}
+        disabled={isVoiceChatLoading}
           >
             Start Voice Chat
           </Button>

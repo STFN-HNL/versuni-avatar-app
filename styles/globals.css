@@ -7,3 +7,21 @@ li {
   margin-left: 30px;
   padding: 2px;
 }
+
+.transcript-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.transcript-scroll::-webkit-scrollbar-thumb {
+  background: #2563eb; /* Tailwind bg-blue-600 */
+  border-radius: 8px;
+}
+.transcript-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9; /* Tailwind bg-slate-100 */
+  border-radius: 8px;
+}
+
+.transcript-scroll {
+  scrollbar-color: #2563eb #f1f5f9;
+  scrollbar-width: thin;
+}
