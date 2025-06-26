@@ -9,16 +9,11 @@ const mavenPro = Maven_Pro({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "HeyGen Interactive Avatar SDK Demo",
-    template: `%s - HeyGen Interactive Avatar SDK Demo`,
-  },
-  icons: {
-    icon: "/versuni-logo.png",
-    shortcut: "/versuni-logo.png",
-    apple: "/versuni-logo.png",
-  },
+  title: "Coaching for Growth at Versuni",
+  description: "Welcome to your AI-powered coaching session.",
   openGraph: {
+    title: "Coaching for Growth at Versuni",
+    description: "Welcome to your AI-powered coaching session.",
     images: [
       {
         url: "/versuni-logo.png",
@@ -28,6 +23,18 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Coaching for Growth at Versuni",
+    description: "Welcome to your AI-powered coaching session.",
+    images: ["/versuni-logo.png"],
+  },
+  icons: {
+    icon: "/versuni-logo.png",
+    shortcut: "/versuni-logo.png",
+    apple: "/versuni-logo.png",
+  },
+  metadataBase: new URL("https://jouw-app.up.railway.app"),
 };
 
 export default function RootLayout({
