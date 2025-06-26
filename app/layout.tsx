@@ -14,7 +14,19 @@ export const metadata: Metadata = {
     template: `%s - HeyGen Interactive Avatar SDK Demo`,
   },
   icons: {
-    icon: "/heygen-logo.png",
+    icon: "/versuni-logo.png",
+    shortcut: "/versuni-logo.png",
+    apple: "/versuni-logo.png",
+  },
+  openGraph: {
+    images: [
+      {
+        url: "/versuni-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Versuni Logo",
+      },
+    ],
   },
 };
 
