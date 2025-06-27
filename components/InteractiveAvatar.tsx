@@ -146,7 +146,7 @@ function InteractiveAvatar() {
           <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">Coaching for Growth at Versuni</h1>
           <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">Welcome to your AI-powered coaching session.</p>
           <p className="text-base sm:text-lg text-gray-700 mb-4">In this interactive simulation, you will act as a <b>coach</b> and guide a virtual coachee through realistic conversations using proven coaching frameworks:</p>
-          <p className="text-base sm:text-lg text-blue-700 font-semibold mb-4">GROW – <span className="font-normal">Goal, Reality, Options, Will – for structured coaching conversations</span></p>
+          <p className="text-base sm:text-lg text-blue-700 font-semibold mb-4">GROW – <span className="font-normal">Goal, Reality, Options, Will do – for structured coaching conversations</span></p>
           <p className="text-base sm:text-lg text-gray-700 mb-4">The coachee will respond naturally—sometimes confident, sometimes uncertain, and occasionally challenged. Your task is to stay curious, ask open questions, and support reflection, clarity, and growth.</p>
           <div className="mb-4">
             <div className="font-semibold mb-1 text-lg sm:text-xl">✅ Before You Start</div>
