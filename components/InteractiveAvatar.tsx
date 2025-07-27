@@ -22,18 +22,14 @@ import { StreamingAvatarProvider, StreamingAvatarSessionState } from "./logic";
 import { LoadingIcon } from "./Icons";
 import { MessageHistory } from "./AvatarSession/MessageHistory";
 import { useStreamingAvatarContext } from "./logic/context";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
-import { AVATARS } from "@/app/lib/constants";
+import { AVATARS, TRANSLATIONS, PAGE_LANGUAGE_LIST } from "@/app/lib/constants";
 
 const DEFAULT_CONFIG: StartAvatarRequest = {
   quality: AvatarQuality.High,
   avatarName: "Graham_Chair_Sitting_public",
-  knowledgeId: "c1307fbde75642b385e3f17f8d164ba2",
-  voice: {
-    rate: 1.5,
-    emotion: VoiceEmotion.EXCITED,
-    model: ElevenLabsModel.eleven_flash_v2_5,
-  },
+  knowledgeId: "af18663f1af143c3a22f2ad6ea435084",
   language: "en",
   voiceChatTransport: VoiceChatTransport.WEBSOCKET,
   sttSettings: {
@@ -41,7 +37,7 @@ const DEFAULT_CONFIG: StartAvatarRequest = {
   },
 };
 
-const AVATAR_INTRO = "Welcome! I'm Alex de Jong, a mid-level professional at Versuni. Over the next 10 minutes, we'll simulate a real coaching session using the GROW model. Your goal? Coach me through my development challenges using effective coaching techniques. I'll respond like a real coachee - sometimes clear, sometimes uncertain, occasionally stuck. You'll guide me through Goal, Reality, Options, and Will phases. When you're done, say: 'END Coaching.' I'll then give you feedback on your coaching approach - what worked well and where you can improve. Let's see how well you can unlock my potential! Say 'START Coaching' when you're ready.";
+// Avatar intro will be selected based on language
 
 function InteractiveAvatar() {
   const { initAvatar, startAvatar, stopAvatar, sessionState, stream } =
@@ -50,8 +46,12 @@ function InteractiveAvatar() {
   const { setIsMuted } = useStreamingAvatarContext();
 
   const [config, setConfig] = useState<StartAvatarRequest>(DEFAULT_CONFIG);
+  const [language, setLanguage] = useState("en");
 
   const mediaStream = useRef<HTMLVideoElement>(null);
+
+  // Get current translations
+  const t = TRANSLATIONS[language as keyof typeof TRANSLATIONS] || TRANSLATIONS.en;
 
   async function fetchAccessToken() {
     try {
@@ -71,6 +71,12 @@ function InteractiveAvatar() {
 
   const startSessionV2 = useMemoizedFn(async (isVoiceChat: boolean) => {
     try {
+      // Update config with current language
+      const updatedConfig = {
+        ...config,
+        language: language,
+      };
+      
       const newToken = await fetchAccessToken();
       const avatar = initAvatar(newToken);
 
@@ -105,7 +111,7 @@ function InteractiveAvatar() {
         console.log(">>>>> Avatar end message:", event);
       });
 
-      await startAvatar(config);
+      await startAvatar(updatedConfig);
 
       // Always start voice chat
       await avatar.startVoiceChat();
@@ -114,9 +120,9 @@ function InteractiveAvatar() {
       await avatar.unmuteInputAudio();
       setIsMuted(false);
 
-      // Speak the intro message synchronously
+      // Speak the intro message in the selected language
       await avatar.speak({
-        text: AVATAR_INTRO,
+        text: t.avatarIntro,
         taskType: TaskType.REPEAT,
         taskMode: TaskMode.SYNC,
       });
@@ -141,48 +147,51 @@ function InteractiveAvatar() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center py-4 sm:py-8">
       <div className="w-full max-w-5xl mx-auto flex flex-col gap-10 items-center px-1 sm:px-6">
+        {/* Language Switcher */}
+        <div className="absolute top-4 right-4 z-10">
+          <LanguageSwitcher
+            language={language}
+            onLanguageChange={setLanguage}
+          />
+        </div>
+        
         <img src="/versuni-logo.png" alt="Versuni Logo" className="mx-auto mb-2 max-h-24 sm:max-h-28 w-auto" />
         <div className="bg-white rounded-xl p-6 sm:p-10 w-full mb-2 mx-auto">
-          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">Coaching for Growth at Versuni</h1>
-          <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">Welcome to your AI-powered coaching session.</p>
-          <p className="text-base sm:text-lg text-gray-700 mb-4">In this interactive simulation, you will act as a <b>coach</b> and guide a virtual coachee through realistic conversations using proven coaching frameworks:</p>
-          <p className="text-base sm:text-lg text-blue-700 font-semibold mb-4">GROW – <span className="font-normal">Goal, Reality, Options, Will do – for structured coaching conversations</span></p>
-          <p className="text-base sm:text-lg text-gray-700 mb-4">The coachee will respond naturally—sometimes confident, sometimes uncertain, and occasionally challenged. Your task is to stay curious, ask open questions, and support reflection, clarity, and growth.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">{t.title}</h1>
+          <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">{t.subtitle}</p>
+          <p className="text-base sm:text-lg text-gray-700 mb-4">{t.description}</p>
+          <p className="text-base sm:text-lg text-blue-700 font-semibold mb-4">{t.growModel}</p>
+          <p className="text-base sm:text-lg text-gray-700 mb-4">{t.coacheeDescription}</p>
           <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">✅ Before You Start</div>
+            <div className="font-semibold mb-1 text-lg sm:text-xl">✅ {t.beforeYouStart}</div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
-              <li>Use <b>headphones</b> for the best experience</li>
-              <li>Ensure a <b>stable internet connection</b> – the avatar requires good connectivity</li>
-              <li>Be <b>patient</b> – responses can take 10–15 seconds</li>
-              <li>This is <b>AI, not a human</b> – it's not perfect, but it's a powerful way to learn</li>
+              {t.beforeYouStartItems.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
             </ul>
           </div>
           <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🎯 Your Role</div>
+            <div className="font-semibold mb-1 text-lg sm:text-xl">🎯 {t.yourRole}</div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
-              <li><b>You</b> are the <b>coach</b> – your job is to guide the coachee</li>
-              <li>The avatar is the <b>coachee</b> – they rely on your coaching</li>
-              <li>If the avatar accidentally starts coaching you back, say:<br /><span className="italic">"Stay in the role of your prompt."</span></li>
+              {t.yourRoleItems.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
             </ul>
           </div>
           <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🛠️ How to Use</div>
+            <div className="font-semibold mb-1 text-lg sm:text-xl">🛠️ {t.howToUse}</div>
             <ol className="list-decimal list-inside text-base sm:text-lg text-gray-700 ml-2">
-              <li>Click 'Chat now' to begin</li>
-              <li>Select your preferred language when the session starts</li>
-              <li>Type <b>"START Coaching"</b> to begin the session</li>
-              <li>Guide the coachee through development challenges using open, thoughtful questions</li>
-              <li><b>Say: End coaching and give feedback.</b></li>
-              <li>Receive <b>personalized feedback</b> on your coaching or feedback style</li>
+              {t.howToUseSteps.map((step, index) => (
+                <li key={index}>{step}</li>
+              ))}
             </ol>
           </div>
           <div className="mb-2">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🔍 Want to Get Better?</div>
+            <div className="font-semibold mb-1 text-lg sm:text-xl">🔍 {t.wantToGetBetter}</div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
-              <li><span className="italic">"Can you give me more detailed feedback on [specific area]?"</span></li>
-              <li><span className="italic">"What tools or techniques can help me improve my listening?"</span></li>
-              <li><span className="italic">"Give me 3 deeper questions I could have asked."</span></li>
-              <li><span className="italic">"What should I practice next as a coach?"</span></li>
+              {t.getBetterQuestions.map((question, index) => (
+                <li key={index}><span className="italic">"{question}"</span></li>
+              ))}
             </ul>
           </div>
         </div>
@@ -198,7 +207,7 @@ function InteractiveAvatar() {
                 className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg text-lg transition z-10"
                 onClick={() => startSessionV2(true)}
               >
-                Chat now
+                {t.chatNow}
               </button>
             )}
           </div>
