@@ -2,29 +2,22 @@ import {
   AvatarQuality,
   StreamingEvents,
   VoiceChatTransport,
-  VoiceEmotion,
   StartAvatarRequest,
   STTProvider,
-  ElevenLabsModel,
   TaskType,
   TaskMode,
 } from "@heygen/streaming-avatar";
 import { useEffect, useRef, useState } from "react";
 import { useMemoizedFn, useUnmount } from "ahooks";
 
-import { Button } from "./Button";
-import { AvatarConfig } from "./AvatarConfig";
 import { AvatarVideo } from "./AvatarSession/AvatarVideo";
 import { useStreamingAvatarSession } from "./logic/useStreamingAvatarSession";
-import { AvatarControls } from "./AvatarSession/AvatarControls";
-import { useVoiceChat } from "./logic/useVoiceChat";
 import { StreamingAvatarProvider, StreamingAvatarSessionState } from "./logic";
-import { LoadingIcon } from "./Icons";
 import { MessageHistory } from "./AvatarSession/MessageHistory";
 import { useStreamingAvatarContext } from "./logic/context";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
-import { AVATARS, TRANSLATIONS, PAGE_LANGUAGE_LIST } from "@/app/lib/constants";
+import { TRANSLATIONS } from "@/app/lib/constants";
 
 const DEFAULT_CONFIG: StartAvatarRequest = {
   quality: AvatarQuality.High,
@@ -42,10 +35,9 @@ const DEFAULT_CONFIG: StartAvatarRequest = {
 function InteractiveAvatar() {
   const { initAvatar, startAvatar, stopAvatar, sessionState, stream } =
     useStreamingAvatarSession();
-  const { startVoiceChat } = useVoiceChat();
   const { setIsMuted } = useStreamingAvatarContext();
 
-  const [config, setConfig] = useState<StartAvatarRequest>(DEFAULT_CONFIG);
+  const [config] = useState<StartAvatarRequest>(DEFAULT_CONFIG);
   const [language, setLanguage] = useState("en");
 
   const mediaStream = useRef<HTMLVideoElement>(null);
@@ -69,7 +61,7 @@ function InteractiveAvatar() {
     }
   }
 
-  const startSessionV2 = useMemoizedFn(async (isVoiceChat: boolean) => {
+  const startSessionV2 = useMemoizedFn(async () => {
     try {
       // Update config with current language
       const updatedConfig = {
@@ -205,7 +197,7 @@ function InteractiveAvatar() {
             {sessionState === StreamingAvatarSessionState.INACTIVE && (
               <button
                 className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg text-lg transition z-10"
-                onClick={() => startSessionV2(true)}
+                                    onClick={() => startSessionV2()}
               >
                 {t.chatNow}
               </button>

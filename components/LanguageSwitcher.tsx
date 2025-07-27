@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Select } from "./Select";
-import { PAGE_LANGUAGE_LIST, STT_LANGUAGE_LIST } from "@/app/lib/constants";
+
+import { PAGE_LANGUAGE_LIST } from "@/app/lib/constants";
 
 interface LanguageSwitcherProps {
   language: string;
