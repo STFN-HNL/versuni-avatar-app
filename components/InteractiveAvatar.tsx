@@ -112,12 +112,9 @@ function InteractiveAvatar() {
       await avatar.unmuteInputAudio();
       setIsMuted(false);
 
-      // Speak the intro message in the selected language
-      await avatar.speak({
-        text: t.avatarIntro,
-        taskType: TaskType.REPEAT,
-        taskMode: TaskMode.SYNC,
-      });
+      // REMOVED: Hardcoded intro message - now using Heygen Knowledge Base intro instead
+      // The Knowledge Base (knowledgeId: "af18663f1af143c3a22f2ad6ea435084") 
+      // will automatically provide the appropriate introduction
     } catch (error) {
       console.error("Error starting avatar session:", error);
     }

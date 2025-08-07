@@ -72,7 +72,7 @@ export const TRANSLATIONS = {
     chatNow: "Start coaching",
     pageLanguage: "Page Language",
     avatarLanguage: "Avatar Language",
-    avatarIntro: "Hi, I am Alex your coaching partner. What's your name?",
+    // REMOVED: avatarIntro - now using Heygen Knowledge Base intro instead
   },
   nl: {
     title: "Coaching voor Groei bij Versuni",
@@ -112,6 +112,6 @@ export const TRANSLATIONS = {
     chatNow: "Start coaching",
     pageLanguage: "Pagina Taal",
     avatarLanguage: "Avatar Taal",
-    avatarIntro: "Hallo, ik ben Alex je coaching partner. Hoe heet je?",
+    // REMOVED: avatarIntro - now using Heygen Knowledge Base intro instead
   },
 };
