@@ -112,9 +112,13 @@ function InteractiveAvatar() {
       await avatar.unmuteInputAudio();
       setIsMuted(false);
 
-      // REMOVED: Hardcoded intro message - now using Heygen Knowledge Base intro instead
-      // The Knowledge Base (knowledgeId: "af18663f1af143c3a22f2ad6ea435084") 
-      // will automatically provide the appropriate introduction
+      // Trigger Knowledge Base introduction by sending an initial prompt in the selected language
+      // This activates the avatar's KB-defined introduction instead of using hardcoded text
+      await avatar.speak({
+        text: t.kbTrigger,
+        taskType: TaskType.TALK,
+        taskMode: TaskMode.ASYNC,
+      });
     } catch (error) {
       console.error("Error starting avatar session:", error);
     }

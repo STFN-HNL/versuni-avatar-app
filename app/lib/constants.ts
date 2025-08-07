@@ -72,7 +72,7 @@ export const TRANSLATIONS = {
     chatNow: "Start coaching",
     pageLanguage: "Page Language",
     avatarLanguage: "Avatar Language",
-    // REMOVED: avatarIntro - now using Heygen Knowledge Base intro instead
+    kbTrigger: "Please introduce yourself as a coaching partner.",
   },
   nl: {
     title: "Coaching voor Groei bij Versuni",
@@ -112,6 +112,6 @@ export const TRANSLATIONS = {
     chatNow: "Start coaching",
     pageLanguage: "Pagina Taal",
     avatarLanguage: "Avatar Taal",
-    // REMOVED: avatarIntro - now using Heygen Knowledge Base intro instead
+    kbTrigger: "Stel jezelf voor als een coaching partner.",
   },
 };
