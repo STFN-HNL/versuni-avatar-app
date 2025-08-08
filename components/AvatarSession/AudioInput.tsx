@@ -8,8 +8,8 @@ import { useStreamingAvatarContext } from "../logic/context";
 
 export const AudioInput: React.FC = () => {
   const {
-    muteInputAudio,
-    unmuteInputAudio,
+    // muteInputAudio, // unused
+    // unmuteInputAudio, // unused
     isMuted,
     isVoiceChatLoading,
   } = useVoiceChat();

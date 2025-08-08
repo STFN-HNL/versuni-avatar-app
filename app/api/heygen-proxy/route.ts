@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
-const HEYGEN_API_TOKEN = 'ODZhMzA3M2FlYjQ2NGVjOTkyNzg0NjljNDRmN2I3Y2QtMTczMjI2NTU5NQ==';
-const HEYGEN_API_URL = 'https://api.heygen.com/v1/video/generate';
+const HEYGEN_API_TOKEN =
+  "ODZhMzA3M2FlYjQ2NGVjOTkyNzg0NjljNDRmN2I3Y2QtMTczMjI2NTU5NQ==";
+const HEYGEN_API_URL = "https://api.heygen.com/v1/video/generate";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,7 +10,10 @@ export async function POST(req: NextRequest) {
     const { avatar_id, text, voice } = body;
 
     if (!avatar_id || !text) {
-      return NextResponse.json({ error: 'avatar_id and text are required.' }, { status: 400 });
+      return NextResponse.json(
+        { error: "avatar_id and text are required." },
+        { status: 400 },
+      );
     }
 
     // Prepare payload for HeyGen APIss
@@ -21,10 +25,10 @@ export async function POST(req: NextRequest) {
 
     // Call HeyGen API
     const heygenRes = await fetch(HEYGEN_API_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${HEYGEN_API_TOKEN}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${HEYGEN_API_TOKEN}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
     });
@@ -39,4 +43,4 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-} 
+}

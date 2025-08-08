@@ -45,17 +45,21 @@ function InteractiveAvatar() {
 
   const [config] = useState<StartAvatarRequest>(DEFAULT_CONFIG);
   const [language, setLanguage] = useState("en");
-  
-  // Log browser language for debugging
-  console.log("Browser language:", navigator.language);
-  console.log("Browser languages:", navigator.languages);
+
+  // Log browser language for debugging (only on client side)
+  useEffect(() => {
+    if (typeof window !== "undefined" && navigator) {
+      console.log("Browser language:", navigator.language);
+      console.log("Browser languages:", navigator.languages);
+    }
+  }, []);
 
   const mediaStream = useRef<HTMLVideoElement>(null);
   const hasAvatarSpokenRef = useRef(false);
-  
 
   // Get current translations
-  const t = TRANSLATIONS[language as keyof typeof TRANSLATIONS] || TRANSLATIONS.en;
+  const t =
+    TRANSLATIONS[language as keyof typeof TRANSLATIONS] || TRANSLATIONS.en;
 
   async function fetchAccessToken() {
     try {
@@ -88,13 +92,21 @@ function InteractiveAvatar() {
           // Advanced Deepgram features (Nova-2, smart formatting) are managed by HeyGen's backend
         },
       };
-      
-      console.log("Starting avatar with enhanced Deepgram STT config:", updatedConfig);
+
+      console.log(
+        "Starting avatar with enhanced Deepgram STT config:",
+        updatedConfig,
+      );
       console.log("Current language state:", language);
       console.log("STT Provider:", updatedConfig.sttSettings?.provider);
-      console.log("STT Confidence threshold:", updatedConfig.sttSettings?.confidence);
-      console.log("Note: Advanced Deepgram features (Nova-2, smart formatting) managed by HeyGen backend");
-      
+      console.log(
+        "STT Confidence threshold:",
+        updatedConfig.sttSettings?.confidence,
+      );
+      console.log(
+        "Note: Advanced Deepgram features (Nova-2, smart formatting) managed by HeyGen backend",
+      );
+
       const newToken = await fetchAccessToken();
       const avatar = initAvatar(newToken);
 
@@ -134,15 +146,16 @@ function InteractiveAvatar() {
 
       // Explicitly speak opening line as AVATAR, with mic muted to avoid echo
       await avatar.muteInputAudio();
-      
-      const introText = language === "en" 
-        ? "Hi i am Alex your coaching Partner. What is your name"
-        : "Hoi ik ben Alex je coaching Partner. Hoe heet jij?";
-        
+
+      const introText =
+        language === "en"
+          ? "Hi i am Alex your coaching Partner. What is your name"
+          : "Hoi ik ben Alex je coaching Partner. Hoe heet jij?";
+
       console.log("Speaking intro in language:", language, "text:", introText);
       console.log("Avatar config language:", updatedConfig.language);
       console.log("STT language will match avatar language automatically");
-      
+
       await avatar.speak({
         text: introText,
         taskType: TaskType.REPEAT,
@@ -183,16 +196,32 @@ function InteractiveAvatar() {
             onLanguageChange={setLanguage}
           />
         </div>
-        
-        <img src="/versuni-logo.png" alt="Versuni Logo" className="mx-auto mb-2 max-h-24 sm:max-h-28 w-auto" />
+
+        <img
+          src="/versuni-logo.png"
+          alt="Versuni Logo"
+          className="mx-auto mb-2 max-h-24 sm:max-h-28 w-auto"
+        />
         <div className="bg-white rounded-xl p-6 sm:p-10 w-full mb-2 mx-auto">
-          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">{t.title}</h1>
-          <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">{t.subtitle}</p>
-          <p className="text-base sm:text-lg text-gray-700 mb-4">{t.description}</p>
-          <p className="text-base sm:text-lg text-blue-700 font-semibold mb-4">{t.growModel}</p>
-          <p className="text-base sm:text-lg text-gray-700 mb-4">{t.coacheeDescription}</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">
+            {t.title}
+          </h1>
+          <p className="text-lg sm:text-xl text-gray-700 mb-2 font-semibold">
+            {t.subtitle}
+          </p>
+          <p className="text-base sm:text-lg text-gray-700 mb-4">
+            {t.description}
+          </p>
+          <p className="text-base sm:text-lg text-blue-700 font-semibold mb-4">
+            {t.growModel}
+          </p>
+          <p className="text-base sm:text-lg text-gray-700 mb-4">
+            {t.coacheeDescription}
+          </p>
           <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">✅ {t.beforeYouStart}</div>
+            <div className="font-semibold mb-1 text-lg sm:text-xl">
+              ✅ {t.beforeYouStart}
+            </div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
               {t.beforeYouStartItems.map((item, index) => (
                 <li key={index}>{item}</li>
@@ -200,7 +229,9 @@ function InteractiveAvatar() {
             </ul>
           </div>
           <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🎯 {t.yourRole}</div>
+            <div className="font-semibold mb-1 text-lg sm:text-xl">
+              🎯 {t.yourRole}
+            </div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
               {t.yourRoleItems.map((item, index) => (
                 <li key={index}>{item}</li>
@@ -208,7 +239,9 @@ function InteractiveAvatar() {
             </ul>
           </div>
           <div className="mb-4">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🛠️ {t.howToUse}</div>
+            <div className="font-semibold mb-1 text-lg sm:text-xl">
+              🛠️ {t.howToUse}
+            </div>
             <ol className="list-decimal list-inside text-base sm:text-lg text-gray-700 ml-2">
               {t.howToUseSteps.map((step, index) => (
                 <li key={index}>{step}</li>
@@ -216,25 +249,36 @@ function InteractiveAvatar() {
             </ol>
           </div>
           <div className="mb-2">
-            <div className="font-semibold mb-1 text-lg sm:text-xl">🔍 {t.wantToGetBetter}</div>
+            <div className="font-semibold mb-1 text-lg sm:text-xl">
+              🔍 {t.wantToGetBetter}
+            </div>
             <ul className="list-disc list-inside text-base sm:text-lg text-gray-700 ml-2">
               {t.getBetterQuestions.map((question, index) => (
-                <li key={index}><span className="italic">"{question}"</span></li>
+                <li key={index}>
+                  <span className="italic">"{question}"</span>
+                </li>
               ))}
             </ul>
           </div>
         </div>
         <div className="relative w-full max-w-5xl mx-auto flex flex-col items-center">
-          <div className="w-full max-w-5xl aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center mx-auto" style={{ minHeight: '460px' }}>
+          <div
+            className="w-full max-w-5xl aspect-video bg-white rounded-xl shadow-2xl overflow-hidden flex items-center justify-center mx-auto"
+            style={{ minHeight: "460px" }}
+          >
             {sessionState !== StreamingAvatarSessionState.INACTIVE ? (
               <AvatarVideo ref={mediaStream} />
             ) : (
-              <img src="/preview.png" alt="Avatar preview" className="w-full h-full object-cover" />
+              <img
+                src="/preview.png"
+                alt="Avatar preview"
+                className="w-full h-full object-cover"
+              />
             )}
             {sessionState === StreamingAvatarSessionState.INACTIVE && (
               <button
                 className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg text-lg transition z-10"
-                                    onClick={() => startSessionV2()}
+                onClick={() => startSessionV2()}
               >
                 {t.chatNow}
               </button>

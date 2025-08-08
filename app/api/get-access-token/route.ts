@@ -4,8 +4,11 @@ export async function POST() {
   try {
     console.log("HEYGEN_API_KEY exists:", !!HEYGEN_API_KEY);
     console.log("HEYGEN_API_KEY length:", HEYGEN_API_KEY?.length);
-    console.log("NEXT_PUBLIC_BASE_API_URL:", process.env.NEXT_PUBLIC_BASE_API_URL);
-    
+    console.log(
+      "NEXT_PUBLIC_BASE_API_URL:",
+      process.env.NEXT_PUBLIC_BASE_API_URL,
+    );
+
     if (!HEYGEN_API_KEY) {
       throw new Error("API key is missing from .env");
     }
@@ -25,7 +28,9 @@ export async function POST() {
     if (!res.ok) {
       const errorText = await res.text();
       console.error("API Error response:", errorText);
-      throw new Error(`API request failed with status ${res.status}: ${errorText}`);
+      throw new Error(
+        `API request failed with status ${res.status}: ${errorText}`,
+      );
     }
 
     const data = await res.json();
