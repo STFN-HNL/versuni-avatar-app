@@ -72,7 +72,7 @@ export const TRANSLATIONS = {
     chatNow: "Start coaching",
     pageLanguage: "Page Language",
     avatarLanguage: "Avatar Language",
-    kbTrigger: "Please introduce yourself as a coaching partner.",
+    kbTrigger: "Hi i am Alex your coaching Partner. What is your name",
   },
   nl: {
     title: "Coaching voor Groei bij Versuni",
@@ -112,6 +112,6 @@ export const TRANSLATIONS = {
     chatNow: "Start coaching",
     pageLanguage: "Pagina Taal",
     avatarLanguage: "Avatar Taal",
-    kbTrigger: "Stel jezelf voor als een coaching partner.",
+    kbTrigger: "Hoi ik ben Alex je coaching Partner. Hoe heet jij?",
   },
 };

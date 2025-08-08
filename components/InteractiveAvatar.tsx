@@ -21,8 +21,10 @@ import { TRANSLATIONS } from "@/app/lib/constants";
 
 const DEFAULT_CONFIG: StartAvatarRequest = {
   quality: AvatarQuality.High,
-  avatarName: "Graham_Chair_Sitting_public",
-  knowledgeId: "af18663f1af143c3a22f2ad6ea435084",
+  avatarName:
+    process.env.NEXT_PUBLIC_AVATAR_ID ?? "Graham_Chair_Sitting_public",
+  knowledgeId:
+    process.env.NEXT_PUBLIC_KNOWLEDGE_ID ?? "f4ddbe7a93194620a4bcfd7ab48a7ab9",
   language: "en",
   voiceChatTransport: VoiceChatTransport.WEBSOCKET,
   sttSettings: {
@@ -41,6 +43,8 @@ function InteractiveAvatar() {
   const [language, setLanguage] = useState("en");
 
   const mediaStream = useRef<HTMLVideoElement>(null);
+  const hasAvatarSpokenRef = useRef(false);
+  
 
   // Get current translations
   const t = TRANSLATIONS[language as keyof typeof TRANSLATIONS] || TRANSLATIONS.en;
@@ -74,6 +78,7 @@ function InteractiveAvatar() {
 
       avatar.on(StreamingEvents.AVATAR_START_TALKING, (e) => {
         console.log("Avatar started talking", e);
+        hasAvatarSpokenRef.current = true;
       });
       avatar.on(StreamingEvents.AVATAR_STOP_TALKING, (e) => {
         console.log("Avatar stopped talking", e);
@@ -105,20 +110,20 @@ function InteractiveAvatar() {
 
       await startAvatar(updatedConfig);
 
-      // Always start voice chat
-      await avatar.startVoiceChat();
+      // Explicitly speak opening line as AVATAR, with mic muted to avoid echo
+      await avatar.muteInputAudio();
+      await avatar.speak({
+        text: t.kbTrigger,
+        taskType: TaskType.REPEAT,
+        taskMode: TaskMode.SYNC,
+      });
 
-      // Force unmute after starting voice chat
+      // After the opening line, start and unmute voice chat for user interaction
+      await avatar.startVoiceChat();
       await avatar.unmuteInputAudio();
       setIsMuted(false);
 
-      // Trigger Knowledge Base introduction by sending an initial prompt in the selected language
-      // This activates the avatar's KB-defined introduction instead of using hardcoded text
-      await avatar.speak({
-        text: t.kbTrigger,
-        taskType: TaskType.TALK,
-        taskMode: TaskMode.ASYNC,
-      });
+      // Do not trigger an app intro; rely on Knowledge Base intro only
     } catch (error) {
       console.error("Error starting avatar session:", error);
     }
