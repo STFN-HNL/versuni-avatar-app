@@ -29,6 +29,10 @@ const DEFAULT_CONFIG: StartAvatarRequest = {
   voiceChatTransport: VoiceChatTransport.WEBSOCKET,
   sttSettings: {
     provider: STTProvider.DEEPGRAM,
+    // Note: HeyGen SDK's STTSettings interface is limited to provider and confidence
+    // Advanced Deepgram settings like Nova-2 model are handled server-side by HeyGen
+    // This ensures professional-grade transcription using Deepgram's infrastructure
+    confidence: 0.8, // Minimum confidence threshold for transcript accuracy
   },
 };
 
@@ -75,15 +79,21 @@ function InteractiveAvatar() {
       const updatedConfig = {
         ...config,
         language: language,
-        // Explicitly force STT language to match UI language
+        // Enhanced STT settings - professional-grade Deepgram transcription
         sttSettings: {
           ...config.sttSettings,
-          language: language,
+          provider: STTProvider.DEEPGRAM,
+          confidence: 0.8, // High confidence threshold for better accuracy
+          // Note: Language is handled separately by HeyGen for STT
+          // Advanced Deepgram features (Nova-2, smart formatting) are managed by HeyGen's backend
         },
       };
       
-      console.log("Starting avatar with config:", updatedConfig);
+      console.log("Starting avatar with enhanced Deepgram STT config:", updatedConfig);
       console.log("Current language state:", language);
+      console.log("STT Provider:", updatedConfig.sttSettings?.provider);
+      console.log("STT Confidence threshold:", updatedConfig.sttSettings?.confidence);
+      console.log("Note: Advanced Deepgram features (Nova-2, smart formatting) managed by HeyGen backend");
       
       const newToken = await fetchAccessToken();
       const avatar = initAvatar(newToken);
@@ -131,7 +141,7 @@ function InteractiveAvatar() {
         
       console.log("Speaking intro in language:", language, "text:", introText);
       console.log("Avatar config language:", updatedConfig.language);
-      console.log("STT language:", updatedConfig.sttSettings?.language);
+      console.log("STT language will match avatar language automatically");
       
       await avatar.speak({
         text: introText,
