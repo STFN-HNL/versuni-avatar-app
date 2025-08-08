@@ -41,6 +41,10 @@ function InteractiveAvatar() {
 
   const [config] = useState<StartAvatarRequest>(DEFAULT_CONFIG);
   const [language, setLanguage] = useState("en");
+  
+  // Log browser language for debugging
+  console.log("Browser language:", navigator.language);
+  console.log("Browser languages:", navigator.languages);
 
   const mediaStream = useRef<HTMLVideoElement>(null);
   const hasAvatarSpokenRef = useRef(false);
@@ -67,11 +71,19 @@ function InteractiveAvatar() {
 
   const startSessionV2 = useMemoizedFn(async () => {
     try {
-      // Update config with current language
+      // Update config with current language - force language settings
       const updatedConfig = {
         ...config,
         language: language,
+        // Explicitly force STT language to match UI language
+        sttSettings: {
+          ...config.sttSettings,
+          language: language,
+        },
       };
+      
+      console.log("Starting avatar with config:", updatedConfig);
+      console.log("Current language state:", language);
       
       const newToken = await fetchAccessToken();
       const avatar = initAvatar(newToken);
@@ -112,8 +124,17 @@ function InteractiveAvatar() {
 
       // Explicitly speak opening line as AVATAR, with mic muted to avoid echo
       await avatar.muteInputAudio();
+      
+      const introText = language === "en" 
+        ? "Hi i am Alex your coaching Partner. What is your name"
+        : "Hoi ik ben Alex je coaching Partner. Hoe heet jij?";
+        
+      console.log("Speaking intro in language:", language, "text:", introText);
+      console.log("Avatar config language:", updatedConfig.language);
+      console.log("STT language:", updatedConfig.sttSettings?.language);
+      
       await avatar.speak({
-        text: t.kbTrigger,
+        text: introText,
         taskType: TaskType.REPEAT,
         taskMode: TaskMode.SYNC,
       });
