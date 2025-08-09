@@ -17,7 +17,6 @@ import { MessageHistory } from "./AvatarSession/MessageHistory";
 import { useStreamingAvatarContext } from "./logic/context";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { OpenAIPanel } from "./OpenAIPanel";
-import { Button } from "./Button";
 
 import { TRANSLATIONS, getKnowledgeBaseId } from "@/app/lib/constants";
 
