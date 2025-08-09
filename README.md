@@ -19,7 +19,18 @@ Feel free to play around with the existing code and please leave any feedback fo
 
    You can retrieve either the API Key by logging in to HeyGen and navigating to this page in your settings: [https://app.heygen.com/settings?from=&nav=Subscriptions%20%26%20API]. 
 
-5. (Optional) If you would like to use the OpenAI features, enter your OpenAI Api Key in the `.env` file.
+5. (Optional) **NEW!** Enhanced OpenAI Features: Enter your OpenAI API Key in the `.env.local` file to unlock:
+   - 🤖 AI-enhanced conversation responses
+   - 🌍 Multi-language translation (12+ languages)  
+   - 📝 Intelligent conversation summarization
+   - 💡 Dynamic conversation starter generation
+   - 🎨 Creative and professional writing modes
+   
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+   
+   See `OPENAI_FEATURES.md` for detailed documentation.
 
 6. Run `npm run dev`
 

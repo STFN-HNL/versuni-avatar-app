@@ -16,8 +16,10 @@ import { StreamingAvatarProvider, StreamingAvatarSessionState } from "./logic";
 import { MessageHistory } from "./AvatarSession/MessageHistory";
 import { useStreamingAvatarContext } from "./logic/context";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { OpenAIPanel } from "./OpenAIPanel";
+import { Button } from "./Button";
 
-import { TRANSLATIONS } from "@/app/lib/constants";
+import { TRANSLATIONS, getKnowledgeBaseId } from "@/app/lib/constants";
 
 const DEFAULT_CONFIG: StartAvatarRequest = {
   quality: AvatarQuality.High,
@@ -45,6 +47,7 @@ function InteractiveAvatar() {
 
   const [config] = useState<StartAvatarRequest>(DEFAULT_CONFIG);
   const [language, setLanguage] = useState("en");
+  const [showOpenAIPanel, setShowOpenAIPanel] = useState(false);
 
   // Log browser language for debugging (only on client side)
   useEffect(() => {
@@ -79,10 +82,11 @@ function InteractiveAvatar() {
 
   const startSessionV2 = useMemoizedFn(async () => {
     try {
-      // Update config with current language - force language settings
+      // Update config with current language and language-specific knowledge base
       const updatedConfig = {
         ...config,
         language: language,
+        knowledgeId: getKnowledgeBaseId(language), // Use language-specific knowledge base
         // Enhanced STT settings - professional-grade Deepgram transcription
         sttSettings: {
           ...config.sttSettings,
@@ -98,6 +102,7 @@ function InteractiveAvatar() {
         updatedConfig,
       );
       console.log("Current language state:", language);
+      console.log("Selected Knowledge Base ID:", updatedConfig.knowledgeId);
       console.log("STT Provider:", updatedConfig.sttSettings?.provider);
       console.log(
         "STT Confidence threshold:",
@@ -286,9 +291,12 @@ function InteractiveAvatar() {
           </div>
         </div>
         {sessionState === StreamingAvatarSessionState.CONNECTED && (
-          <div className="w-full mt-4">
+          <div className="w-full mt-4 space-y-4">
             <MessageHistory />
           </div>
+        )}
+        {showOpenAIPanel && (
+          <OpenAIPanel onClose={() => setShowOpenAIPanel(false)} />
         )}
       </div>
     </div>

@@ -26,6 +26,46 @@ export const STT_LANGUAGE_LIST = [
   { label: "Dutch", value: "nl", key: "nl" },
 ];
 
+// Language-specific knowledge base configuration
+export const LANGUAGE_KNOWLEDGE_BASES = {
+  en: process.env.NEXT_PUBLIC_KNOWLEDGE_ID_EN ?? "f4ddbe7a93194620a4bcfd7ab48a7ab9", // English knowledge base
+  nl: process.env.NEXT_PUBLIC_KNOWLEDGE_ID_NL ?? "5cd5abcd207c4566b0dd4813cedd846d", // Dutch knowledge base
+};
+
+// Function to get knowledge base ID based on language
+export function getKnowledgeBaseId(language: string): string {
+  return LANGUAGE_KNOWLEDGE_BASES[language as keyof typeof LANGUAGE_KNOWLEDGE_BASES] || LANGUAGE_KNOWLEDGE_BASES.en;
+}
+
+export const OPENAI_LANGUAGES = [
+  { value: 'spanish', label: 'Spanish' },
+  { value: 'french', label: 'French' },
+  { value: 'german', label: 'German' },
+  { value: 'italian', label: 'Italian' },
+  { value: 'portuguese', label: 'Portuguese' },
+  { value: 'russian', label: 'Russian' },
+  { value: 'japanese', label: 'Japanese' },
+  { value: 'korean', label: 'Korean' },
+  { value: 'chinese', label: 'Chinese' },
+  { value: 'arabic', label: 'Arabic' },
+  { value: 'hindi', label: 'Hindi' },
+  { value: 'dutch', label: 'Dutch' },
+];
+
+export const OPENAI_CHAT_MODES = [
+  { value: 'chat', label: 'Natural Chat' },
+  { value: 'creative', label: 'Creative' },
+  { value: 'professional', label: 'Professional' },
+];
+
+export const OPENAI_SUMMARY_OPTIONS = [
+  { value: 'brief-general', label: 'Brief Overview' },
+  { value: 'detailed-general', label: 'Detailed Overview' },
+  { value: 'brief-key_points', label: 'Key Points' },
+  { value: 'brief-decisions', label: 'Decisions Made' },
+  { value: 'brief-questions', label: 'Questions & Answers' },
+];
+
 // Page language options (subset of supported languages for UI)
 export const PAGE_LANGUAGE_LIST = [
   { label: "English", value: "en", flag: "🇺🇸" },
