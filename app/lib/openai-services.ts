@@ -1,4 +1,4 @@
-import { openai } from './openai';
+import { getOpenAI } from './openai';
 
 export interface ConversationMessage {
   role: 'system' | 'user' | 'assistant';
@@ -45,7 +45,7 @@ Your responses should be:
         }
       ];
 
-      const response = await openai.chat.completions.create({
+      const response = await getOpenAI().chat.completions.create({
         model: 'gpt-3.5-turbo',
         messages,
         max_tokens: 150,
@@ -87,7 +87,7 @@ Your responses should be:
         professional: 'You are a professional communicator. Maintain a formal, business-appropriate tone.'
       };
 
-      const response = await openai.chat.completions.create({
+      const response = await getOpenAI().chat.completions.create({
         model: 'gpt-3.5-turbo',
         messages: [
           {
@@ -147,7 +147,7 @@ Your responses should be:
         detailed: 'Provide a comprehensive summary in 1-2 paragraphs.'
       };
 
-      const response = await openai.chat.completions.create({
+      const response = await getOpenAI().chat.completions.create({
         model: 'gpt-3.5-turbo',
         messages: [
           {
@@ -190,7 +190,7 @@ Your responses should be:
         ? `Translate the following text to ${targetLanguage}:`
         : `Translate the following text from ${sourceLanguage} to ${targetLanguage}:`;
 
-      const response = await openai.chat.completions.create({
+      const response = await getOpenAI().chat.completions.create({
         model: 'gpt-3.5-turbo',
         messages: [
           {
@@ -232,7 +232,7 @@ Your responses should be:
         ? `Generate ${count} interesting conversation starters related to: ${context}`
         : `Generate ${count} general conversation starters that would be engaging for an interactive avatar chat`;
 
-      const response = await openai.chat.completions.create({
+      const response = await getOpenAI().chat.completions.create({
         model: 'gpt-3.5-turbo',
         messages: [
           {
