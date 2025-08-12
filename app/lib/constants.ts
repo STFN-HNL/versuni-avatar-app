@@ -99,10 +99,8 @@ export const TRANSLATIONS = {
     howToUse: "How to Use",
     howToUseSteps: [
       "Click 'Start coaching' to begin",
-      "Select your preferred language when the session starts",
-      "Type 'START Coaching' to begin the session",
       "Guide the coachee through development challenges using open, thoughtful questions",
-      "Say: End coaching and give feedback.",
+      "Say: End coaching.",
       "Receive personalized feedback on your coaching or feedback style",
     ],
     wantToGetBetter: "Want to Get Better?",
@@ -142,10 +140,8 @@ export const TRANSLATIONS = {
     howToUse: "Hoe te Gebruiken",
     howToUseSteps: [
       "Klik 'Start coaching' om te beginnen",
-      "Selecteer je voorkeurstaal wanneer de sessie start",
-      "Type 'START Coaching' om de sessie te beginnen",
       "Begeleid de coachee door ontwikkelingsuitdagingen met open, doordachte vragen",
-      "Zeg: Coaching beëindigen en feedback geven.",
+      "Zeg: Coaching beëindigen.",
       "Ontvang gepersonaliseerde feedback over je coaching-stijl",
     ],
     wantToGetBetter: "Wil je Beter Worden?",
